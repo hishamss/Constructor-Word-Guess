@@ -3,7 +3,7 @@ var inquirer = require("inquirer");
 var words = ["cat", "dog", "lion", "tiger", "zebra"];
 var wordtoguess;
 var wordtoguessOjb;
-var NumOfGuessess;
+var NumOfGuessed;
 function generateword() {
   wordtoguess = words[Math.floor(Math.random() * words.length)];
 }
@@ -31,6 +31,7 @@ function PromptCharGuessing() {
       //   if check method returned true, means that the match just happened and your answer correct
       if (correct) {
         console.log("Correct!");
+        NumOfGuessed++;
       } else {
         console.log("Incorrect!!");
         NumOfGuessess--;
@@ -38,6 +39,9 @@ function PromptCharGuessing() {
       }
       if (NumOfGuessess == 0) {
         GameOver();
+      } else if (NumOfGuessed == wordtoguess.length) {
+        console.log("Great Job!! You Got It right");
+        PlayAgain();
       } else {
         PromptCharGuessing();
       }
@@ -46,11 +50,31 @@ function PromptCharGuessing() {
 
 function PlayGame() {
   NumOfGuessess = 8;
+  NumOfGuessed = 0;
   console.log("---------New Game----------");
   console.log("--------" + NumOfGuessess + " guesses remaining---------");
   generateword();
   wordtoguessOjb = new Word.word(wordtoguess);
   PromptCharGuessing();
+}
+
+function PlayAgain() {
+  inquirer
+    .prompt([
+      {
+        name: "confirm",
+        type: "confirm",
+        message: "Would you like to play again?",
+      },
+    ])
+    .then(function (answer) {
+      if (answer.confirm === true) {
+        PlayGame();
+      } else {
+        console.log("Goodbye");
+        process.exit();
+      }
+    });
 }
 
 function GameOver() {
