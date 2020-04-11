@@ -7,18 +7,26 @@ function Word(RandWord) {
   for (RandChar of RandWord) {
     this.word.push(new Letter.letter(RandChar));
   }
-
   this.wordrep = function () {
-    var dashes = "";
-    for (dash of this.word) {
-      dashes += dash + "";
+    var repstring = "";
+    for (letterojb of this.word) {
+      repstring += letterojb + "";
     }
-    return dashes;
+    return repstring;
+  };
+  this.check = function (charachter) {
+    for (letterojb of this.word) {
+      letterojb.guess(charachter);
+    }
   };
 }
 
 var test = new Word("hisham");
 // console.log(test.word);
+console.log(test.wordrep());
+test.check("h");
+console.log(test.wordrep());
+test.check("m");
 console.log(test.wordrep());
 // newletter.push(new Letter.letter());
 // newletter[0].letter = "a";

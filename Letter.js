@@ -11,8 +11,6 @@ function Letter(letter) {
   this.guess = function (charachter) {
     if (charachter === this.letter) {
       this.guessed = true;
-    } else {
-      this.guessed = false;
     }
   };
 }
