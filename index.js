@@ -3,6 +3,7 @@ var inquirer = require("inquirer");
 var words = ["cat", "dog", "lion", "tiger", "zebra"];
 var wordtoguess;
 var wordtoguessOjb;
+var NumOfGuessess;
 function generateword() {
   wordtoguess = words[Math.floor(Math.random() * words.length)];
 }
@@ -31,17 +32,46 @@ function PromptCharGuessing() {
       if (correct) {
         console.log("Correct!");
       } else {
-        console.log("InCorrect!!");
+        console.log("Incorrect!!");
+        NumOfGuessess--;
+        console.log("--------" + NumOfGuessess + " guesses remaining---------");
       }
-
-      PromptCharGuessing();
+      if (NumOfGuessess == 0) {
+        GameOver();
+      } else {
+        PromptCharGuessing();
+      }
     });
 }
 
 function PlayGame() {
+  NumOfGuessess = 8;
+  console.log("---------New Game----------");
+  console.log("--------" + NumOfGuessess + " guesses remaining---------");
   generateword();
   wordtoguessOjb = new Word.word(wordtoguess);
   PromptCharGuessing();
+}
+
+function GameOver() {
+  console.log("-------GAME OVER-----------");
+
+  inquirer
+    .prompt([
+      {
+        name: "confirm",
+        type: "confirm",
+        message: "Would you like to play again?",
+      },
+    ])
+    .then(function (answer) {
+      if (answer.confirm === true) {
+        PlayGame();
+      } else {
+        console.log("Goodbye");
+        process.exit();
+      }
+    });
 }
 
 PlayGame();
