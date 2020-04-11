@@ -1,14 +1,13 @@
 var Word = require("./Word.js");
 var inquirer = require("inquirer");
 var words = ["cat", "dog", "lion", "tiger", "zebra"];
-
-function generate() {
-  var wordtoguess = words[Math.floor(Math.random() * words.length)];
-  console.log(wordtoguess);
-  var wordtoguessOjb = new Word.word(wordtoguess);
+var wordtoguess;
+var wordtoguessOjb;
+function generateword() {
+  wordtoguess = words[Math.floor(Math.random() * words.length)];
 }
 
-function playgame() {
+function PromptCharGuessing() {
   inquirer
     .prompt([
       {
@@ -24,9 +23,17 @@ function playgame() {
       },
     ])
     .then(function (answer) {
-      console.log(answer.letter);
-      playgame();
+      //   console.log(answer.letter);
+      wordtoguessOjb.check(answer.letter);
+      console.log(wordtoguessOjb.wordrep());
+      PromptCharGuessing();
     });
 }
 
-playgame();
+function PlayGame() {
+  generateword();
+  wordtoguessOjb = new Word.word(wordtoguess);
+  PromptCharGuessing();
+}
+
+PlayGame();
