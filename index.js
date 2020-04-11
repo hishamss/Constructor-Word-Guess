@@ -26,7 +26,7 @@ function PromptCharGuessing() {
     .then(function (answer) {
       //   console.log(answer.letter);
       var correct = false;
-      correct = wordtoguessOjb.check(answer.letter);
+      correct = wordtoguessOjb.check(answer.letter.toLowerCase());
       console.log(wordtoguessOjb.wordrep());
       //   if check method returned true, means that the match just happened and your answer correct
       if (correct) {
