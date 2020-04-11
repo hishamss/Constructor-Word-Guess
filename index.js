@@ -24,8 +24,16 @@ function PromptCharGuessing() {
     ])
     .then(function (answer) {
       //   console.log(answer.letter);
-      wordtoguessOjb.check(answer.letter);
+      var correct = false;
+      correct = wordtoguessOjb.check(answer.letter);
       console.log(wordtoguessOjb.wordrep());
+      //   if check method returned true, means that the match just happened and your answer correct
+      if (correct) {
+        console.log("Correct!");
+      } else {
+        console.log("InCorrect!!");
+      }
+
       PromptCharGuessing();
     });
 }
